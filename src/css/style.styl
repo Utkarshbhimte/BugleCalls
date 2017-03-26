@@ -1,0 +1,36 @@
+// Import all partials
+@require './_*.styl'
+@import url('https://www.fontify.me/wf/af83a66be5d910ef21b7df40e1dd588f')
+
+// Header
+header{
+  padding 1em
+  #trigger{
+    display none
+  }
+  .hamburger{
+    display flex
+    justify-content center
+    flex-direction column
+    align-content center
+    position fixed
+    top: 3vh
+    right: 5vw
+    height 2em
+    width 3em
+    transition all .1s ease-in
+    .line{
+      background-color #212121
+      width 80%
+      height 2px
+      margin 3px auto
+      transition all .1s ease-in
+    }
+  }
+  input:checked + label{
+    background-color #212121
+    .line{
+      background-color white
+    }
+  }
+}
