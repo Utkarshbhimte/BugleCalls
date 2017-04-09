@@ -683,9 +683,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Proxima Nova';
 }
+@import 'font-awesome.min.css';
 @import url("https://www.fontify.me/wf/af83a66be5d910ef21b7df40e1dd588f");
 header {
   padding: 1em;
+  box-shadow: 0 0 10px #c3c3c3;
+  position: fixed;
+  width: 100%;
+  z-index: 4;
+  background-color: #fff;
+}
+header h3 {
+  text-align: center;
+  margin: 0;
 }
 header #trigger {
   display: none;
@@ -724,4 +734,65 @@ header input:checked + label {
 }
 header input:checked + label .line {
   background-color: #fff;
+}
+.content-wrap {
+  padding: 4em 0 0;
+  background-color: #f5f5f5;
+}
+.card {
+  margin: 3em 0;
+}
+.card .event-type {
+  display: block;
+  padding: 0.5em;
+  text-align: right;
+  border-radius: 1em 1em 0 0;
+  background-color: #1eaedb;
+  color: #fff;
+  padding-right: 2em;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+.card .details {
+  padding: 1.5em 1em;
+  box-shadow: 0 6px 54px -9px #d3d3d3;
+  background-color: #fff;
+}
+.card .details > span {
+  display: block;
+}
+.card h4 {
+  margin: 0;
+}
+.card .tags-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0.7em;
+}
+.card .tags-wrap .tag {
+  background-color: #1eaedb;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  color: #fff;
+}
+.card .tags-wrap .tag:before {
+  content: '#';
+}
+.card .btn-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.4em;
+}
+.card .btn-wrap a {
+  display: block;
+  padding: 0.5em;
+  width: 100%;
+  text-align: center;
 }
