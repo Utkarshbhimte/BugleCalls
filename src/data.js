@@ -1,12 +1,13 @@
 module.exports = {
     "events": [
         {
+            "_id": "000001",
             "type": "hackathon",
             "name": "IoT Geeks - Arduino Day 2017",
             "tags": ["IoT"],
             "organizer": "Murugadoss Balasubramanian",
-            "startTime": "Saturday, April 1 at 10 AM",
-            "endTime": "Saturday, April 1 at 4 PM",
+            "startTime": "2017-06-14",
+            "endTime": "2017-06-14",
             "location": "Chennai",
             "comments": [
                 {
@@ -32,12 +33,13 @@ module.exports = {
             ]
         },
         {
+            "_id": "000002",
             "type": "hackathon",
             "name": "IoT Geeks - Arduino Day 2017",
             "tags": ["IoT"],
             "organizer": "Murugadoss Balasubramanian",
-            "startTime": "Saturday, April 1 at 10 AM",
-            "endTime": "Saturday, April 1 at 4 PM",
+            "startTime": "2017-06-19",
+            "endTime": "2017-06-19",
             "location": "Chennai",
             "comments": [
                 {
@@ -63,12 +65,13 @@ module.exports = {
             ]
         },
         {
+            "_id": "000003",
             "type": "hackathon",
             "name": "IoT Geeks - Arduino Day 2017",
             "tags": ["IoT"],
             "organizer": "Murugadoss Balasubramanian",
-            "startTime": "Saturday, April 1 at 10 AM",
-            "endTime": "Saturday, April 1 at 4 PM",
+            "startTime": "2017-09-09",
+            "endTime": "2017-09-09",
             "location": "Chennai",
             "comments": [
                 {
@@ -94,12 +97,13 @@ module.exports = {
             ]
         },
         {
+            "_id": "000004",
             "type": "hackathon",
             "name": "IoT Geeks - Arduino Day 2017",
             "tags": ["IoT"],
             "organizer": "Murugadoss Balasubramanian",
-            "startTime": "Saturday, April 1 at 10 AM",
-            "endTime": "Saturday, April 1 at 4 PM",
+            "startTime": "2017-09-09",
+            "endTime": "2017-09-09",
             "location": "Chennai",
             "comments": [
                 {
@@ -125,12 +129,13 @@ module.exports = {
             ]
         },
         {
+            "_id": "000005",
             "type": "hackathon",
             "name": "IoT Geeks - Arduino Day 2017",
             "tags": ["IoT"],
             "organizer": "Murugadoss Balasubramanian",
-            "startTime": "Saturday, April 1 at 10 AM",
-            "endTime": "Saturday, April 1 at 4 PM",
+            "startTime": "2017-09-09",
+            "endTime": "2017-09-09",
             "location": "Chennai",
             "comments": [
                 {
@@ -156,12 +161,13 @@ module.exports = {
             ]
         },
         {
+            "_id": "000006",
             "type": "hackathon",
             "name": "IoT Geeks - Arduino Day 2017",
             "tags": ["IoT"],
             "organizer": "Murugadoss Balasubramanian",
-            "startTime": "Saturday, April 1 at 10 AM",
-            "endTime": "Saturday, April 1 at 4 PM",
+            "startTime": "2017-09-09",
+            "endTime": "2017-09-09",
             "location": "Chennai",
             "comments": [
                 {
