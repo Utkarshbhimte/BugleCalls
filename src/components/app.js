@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import RMoment from 'react-moment';
+import RMoment from "react-moment";
 import Moment from "moment";
+import FontAwesome from "react-fontawesome";
 
 import Header from "./header";
 import Card from "./card";
@@ -16,7 +17,7 @@ class App extends Component {
             console.log('event', index, Moment().calendar(Moment(event.startTime)), event.startTime);
             event.live = Moment().diff(Moment(event.startTime)) < 0;
 
-            if(event.live){
+            if (event.live) {
                 events[event.startTime] = events[event.startTime] ? events[event.startTime] : [];
                 events[event.startTime].push(event);
             }
@@ -49,6 +50,9 @@ class App extends Component {
 
                     </div>
                 </div>
+                <a href="/add" className="fab-btn">
+                    <FontAwesome name="plus"/>
+                </a>
             </div>
         );
     }

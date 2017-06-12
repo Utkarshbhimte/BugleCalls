@@ -5,6 +5,11 @@
 
 $brand-blue = #1eaedb
 
+.contain-all {
+  height 100vh
+  width 100vw
+}
+
 // Header
 header {
   padding 1em
@@ -48,19 +53,19 @@ header {
     top 0
     left 100vw
     transition all .3s ease-in-out
-    .back-btn{
+    .back-btn {
       position fixed
       top -5vh
       right 10vw
       transition all .3s ease-in-out
     }
-    ul{
+    ul {
       list-style none
       padding 10vh 0
-      li{
+      li {
         padding 0
         margin 0
-        a{
+        a {
           padding 1em 2em
           display block
           text-decoration: none
@@ -71,7 +76,7 @@ header {
   input:checked ~ .side-nav {
     display block
     left 0
-    .back-btn{
+    .back-btn {
       top 5vh
     }
   }
@@ -101,7 +106,7 @@ header {
     padding .5em
     text-align right
     border-radius 0
-    background-color  $brand-blue
+    background-color $brand-blue
     color #FFFFFF
     padding-right: 2em
     position relative
@@ -127,11 +132,11 @@ header {
     padding 1.5em 1em
     box-shadow 0 6px 54px -9px #d3d3d3
     background-color white
-    small{
+    small {
       margin-bottom: 1em
       display: block
     }
-    .detail-point span{
+    .detail-point span {
       display inline-block
       width 2em
     }
@@ -175,6 +180,76 @@ header {
       &.comments {
         background-image url('./images/chat.svg')
       }
+    }
+  }
+}
+
+.fab-btn {
+  position fixed
+  background-color $brand-blue
+  padding 1em
+  width 3.5em
+  height 3.5em
+  text-align center
+  border-radius 50%
+  line-height -3.5em
+  bottom 5vh
+  right 10vw
+  color white
+  box-shadow 0 13px 55px -9px #212121
+}
+
+// Add form
+.form-wrap {
+  padding-top 8vh
+  .back-btn {
+    position absolute
+    top 5vh
+    right 10vw
+    text-decoration none
+  }
+  .input-wrap {
+    display flex
+    max-width 100%
+    flex-wrap wrap
+    margin-bottom 2em
+    label {
+      flex 1 34%
+      padding .25em 2em
+      text-align center
+      border 1px solid #cecece
+      margin .3em 1em
+      transition all .3 ease-out
+    }
+  }
+  .time-label{
+    height: 38px;
+    padding: 6px 10px;
+    background-color: #fff;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+    margin-bottom 1em
+    .placeholder{
+      color #858585
+      font-weight 400
+    }
+  }
+  input {
+    display block
+    width 100%
+    &[type='radio']{
+      display none
+    }
+    &[type='datetime-local']{
+      transform scale(0)
+      position absolute
+    }
+    &:checked + label {
+      border-color $brand-blue
+      background-color $brand-blue
+      color white
     }
   }
 }

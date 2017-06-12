@@ -5,6 +5,7 @@ import { BrowserRouter, Match} from 'react-router';
 
 import './css/style.css';
 import App from './components/app';
+import AddEventForm from './components/AddEventForm'
 
 // const repo = `/${window.location.pathname.split('/')[1]}`;
 
@@ -13,6 +14,7 @@ const Root = () => {
         <BrowserRouter>
             <div>
                 <Match exactly pattern="/" component={App} />
+                <Match exactly pattern="/add" component={AddEventForm} />
             </div>
         </BrowserRouter>
     )
