@@ -2,27 +2,35 @@ import React, {
     Component,
     PropTypes,
 } from 'react';
-
 import FontAwesome from 'react-fontawesome';
 
-
 class Card extends Component {
+    constructor(props){
+        super(props);
+    }
     render() {
+        let event = this.props.data;
+        console.log(this.props.data);
         return (
             <div className="card">
-                <span className="event-type">Hackathon</span>
+                <span className="event-type">{event.type}</span>
                 <div className="details">
-                    <h4>IoT Geeks - Arduino Day 2017</h4>
+                    <h4>{event.name}</h4>
                     <div className="tags-wrap">
-                        <div className="tag">IoT</div>
+                        {
+                            event.tags.map( (tag, index) => {
+                             return <div key={index} className="tag">{tag}</div>;
+                            })
+                        }
                     </div>
-                    <small className="organizer">Murugadoss Balasubramanian</small>
-                    <span className="time">Saturday, April 1 at 10 AM - 4 PM</span>
-                    <span className="location">Chennai</span>
+                    <small className="organizer">{event.organizer}</small>
+                    <span className="time">{event.startTime}</span>
+                    <span className="time">{event.endTime}</span>
+                    <span className="location">{event.location}</span>
                     <div className="btn-wrap">
-                        <a href=""><FontAwesome name='info-circle'/></a>
-                        <a href=""><FontAwesome name='file'/></a>
-                        <a href=""><FontAwesome name='commenting'/></a>
+                        <a href="" className="btn info"></a>
+                        <a href="" className="btn form"></a>
+                        <a href="" className="btn comments"></a>
                     </div>
                 </div>
             </div>
