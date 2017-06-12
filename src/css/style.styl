@@ -45,7 +45,7 @@ header {
       background-color white
     }
   }
-  .side-nav{
+  .side-nav {
     display none
   }
   input:checked + .side-nav {
@@ -55,33 +55,41 @@ header {
 
 // Content Wrap
 .content-wrap {
-  padding 4em 0 0
+  padding 7em 0 0
   background-color #f5f5f5
+  .time-heading {
+    text-align center
+    margin-bottom 0
+    letter-spacing 4px
+    text-transform uppercase
+    font-weight 800
+    color #b3b3b3
+  }
 }
 
 // Card
 .card {
-  margin 3em 0
+  margin 2em 0 3em
   overflow hidden
   .event-type {
     display block
     padding .5em
     text-align right
     border-radius 0
-    background-color $brand-blue
+    background-color  $brand-blue
     color #FFFFFF
     padding-right: 2em;
     position relative
     text-transform: uppercase;
     letter-spacing: 4px;
-    .tags-wrap{
+    .tags-wrap {
       display flex
       flex-direction row-reverse
     }
-    &:after{
+    &:after {
       position absolute
-      top 100%
-      left 0
+      top 99%
+      right 0
       content ''
       display block
       width: 0;
@@ -94,8 +102,13 @@ header {
     padding 1.5em 1em
     box-shadow 0 6px 54px -9px #d3d3d3
     background-color white
-    > span {
-      display block
+    small{
+      margin-bottom: 1em;
+      display: block;
+    }
+    .detail-point span{
+      display inline-block
+      width 2em
     }
   }
   h4 {
@@ -128,13 +141,13 @@ header {
       background-repeat no-repeat
       height 1.5em
       padding 1em
-      &.info{
+      &.info {
         background-image url('./images/info.svg')
       }
-      &.form{
+      &.form {
         background-image url('./images/application-form.svg')
       }
-      &.comments{
+      &.comments {
         background-image url('./images/chat.svg')
       }
     }

@@ -1,22 +1,27 @@
-import React, {
-    Component,
-    PropTypes,
-} from 'react';
+import React, {Component} from "react";
+import FontAwesome from "react-fontawesome";
+import RMoment from "react-moment";
+import Moment from "moment";
 
 class Card extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
+
+
     }
+
     render() {
         let event = this.props.data;
-        console.log(this.props.data);
+
+        event.sameDay = Moment(event.startTime).diff(Moment(event.endTime), 'days') === 0;
+
         return (
             <div className="card">
                 <div className="event-type">
                     <span>{event.type}</span>
                     <div className="tags-wrap">
                         {
-                            event.tags.map( (tag, index) => {
+                            event.tags.map((tag, index) => {
                                 return <div key={index} className="tag">{tag}</div>;
                             })
                         }
@@ -24,10 +29,34 @@ class Card extends Component {
                 </div>
                 <div className="details">
                     <h4>{event.name}</h4>
-                    <small className="organizer">{event.organizer}</small>
-                    <span className="time">{event.startTime}</span>
-                    <span className="time">{event.endTime}</span>
-                    <span className="location">{event.location}</span>
+                    <small className="organizer">Hosted by {event.organizer}</small>
+
+                    {
+                        !event.sameDay &&
+
+                        <div className="detail-point">
+                            <FontAwesome name="calendar-o"/>
+                            <RMoment format="DD MMM HH:mm A">{event.startTime}</RMoment> - <RMoment
+                            format="DD MMM HH:mm A">{event.endTime}</RMoment>
+                        </div>
+                    }
+
+                    {
+                        event.sameDay &&
+
+                        <div className="detail-point">
+                            <FontAwesome name="calendar-o"/>
+                            <RMoment format="DD MMM">{event.startTime}</RMoment> [<RMoment
+                            format="HH:mm A">{event.startTime}</RMoment> - <RMoment
+                            format="HH:mm A">{event.endTime}</RMoment>]
+                        </div>
+                    }
+
+                    <div className="detail-point">
+                        <FontAwesome name="map-marker"/>
+                        {event.location}
+                    </div>
+
                     <div className="btn-wrap">
                         <a href="" className="btn info"></a>
                         <a href="" className="btn form"></a>

@@ -1,31 +1,52 @@
-import React, {
-    Component,
-    PropTypes,
-} from 'react';
-import Header from "./header"
-import Card from "./card"
+import React, {Component} from "react";
+import RMoment from 'react-moment';
+import Moment from "moment";
 
-import SampleData from '../data.js'
+import Header from "./header";
+import Card from "./card";
+import SampleData from "../data.js";
 
 class App extends Component {
-    constructor(){
+    constructor() {
         super();
 
+        let events = {};
+
+        SampleData.events.forEach((event, index) => {
+            console.log('event', index, Moment().calendar(Moment(event.startTime)), event.startTime);
+            event.live = Moment().diff(Moment(event.startTime)) < 0;
+
+            if(event.live){
+                events[event.startTime] = events[event.startTime] ? events[event.startTime] : [];
+                events[event.startTime].push(event);
+            }
+        });
+
         this.state = {
-            events: SampleData.events
+            events: events
         }
     }
+
     render() {
         return (
             <div className="contain-all">
                 <Header />
                 <div className="content-wrap">
                     <div className="container">
+
                         {
-                            this.state.events.map((event, index) => {
-                               return <Card key={index} data={event}/>;
+                            Object.keys(this.state.events).map((date) => {
+                                return <div key={date} className="day-wrap">
+                                    <h5 className="time-heading"><RMoment fromNow>{date}</RMoment></h5>
+                                    {
+                                        this.state.events[date].map((event) => {
+                                            return <Card key={event._id} data={event}/>;
+                                        })
+                                    }
+                                </div>;
                             })
                         }
+
                     </div>
                 </div>
             </div>
