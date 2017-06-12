@@ -2,7 +2,6 @@ import React, {
     Component,
     PropTypes,
 } from 'react';
-import FontAwesome from 'react-fontawesome';
 
 class Card extends Component {
     constructor(props){

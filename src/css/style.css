@@ -735,6 +735,13 @@ header input:checked + label {
 header input:checked + label .line {
   background-color: #fff;
 }
+header .side-nav {
+  display: none;
+  background-color: #f00;
+}
+header input:checked + .side-nav {
+  display: block;
+}
 .content-wrap {
   padding: 4em 0 0;
   background-color: #f5f5f5;
@@ -746,7 +753,7 @@ header input:checked + label .line {
   display: block;
   padding: 0.5em;
   text-align: right;
-  border-radius: 1em 1em 0 0;
+  border-radius: 0;
   background-color: #1eaedb;
   color: #fff;
   padding-right: 2em;
@@ -788,11 +795,24 @@ header input:checked + label .line {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 1.4em;
+  margin: 1em 0;
 }
-.card .btn-wrap a {
+.card .btn-wrap a.btn {
   display: block;
-  padding: 0.5em;
   width: 100%;
   text-align: center;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 1.5em;
+  padding: 1em;
+}
+.card .btn-wrap a.btn.info {
+  background-image: url("./images/info.svg");
+}
+.card .btn-wrap a.btn.form {
+  background-image: url("./images/application-form.svg");
+}
+.card .btn-wrap a.btn.comments {
+  background-image: url("./images/chat.svg");
 }
