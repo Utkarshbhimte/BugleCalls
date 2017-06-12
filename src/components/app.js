@@ -5,20 +5,27 @@ import React, {
 import Header from "./header"
 import Card from "./card"
 
+import SampleData from '../data.js'
+
 class App extends Component {
+    constructor(){
+        super();
+
+        this.state = {
+            events: SampleData.events
+        }
+    }
     render() {
         return (
             <div className="contain-all">
                 <Header />
                 <div className="content-wrap">
                     <div className="container">
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                        {
+                            this.state.events.map((event, index) => {
+                               return <Card key={index} data={event}/>;
+                            })
+                        }
                     </div>
                 </div>
             </div>
