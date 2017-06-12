@@ -9,10 +9,10 @@ $brand-blue = #1eaedb
 header {
   padding 1em
   box-shadow 0 0 10px #c3c3c3
-  position: fixed;
-  width: 100%;
-  z-index: 4;
-  background-color: white;
+  position: fixed
+  width: 100%
+  z-index: 4
+  background-color: white
   h3 {
     text-align center
     margin 0
@@ -39,17 +39,41 @@ header {
       transition all .1s ease-in
     }
   }
-  input:checked + label {
-    background-color #212121
-    .line {
-      background-color white
+  .side-nav {
+    display block
+    position absolute
+    background-color white
+    width 100vw
+    height 100vh
+    top 0
+    left 100vw
+    transition all .3s ease-in-out
+    .back-btn{
+      position fixed
+      top -5vh
+      right 10vw
+      transition all .3s ease-in-out
+    }
+    ul{
+      list-style none
+      padding 10vh 0
+      li{
+        padding 0
+        margin 0
+        a{
+          padding 1em 2em
+          display block
+          text-decoration: none
+        }
+      }
     }
   }
-  .side-nav {
-    display none
-  }
-  input:checked + .side-nav {
+  input:checked ~ .side-nav {
     display block
+    left 0
+    .back-btn{
+      top 5vh
+    }
   }
 }
 
@@ -71,6 +95,7 @@ header {
 .card {
   margin 2em 0 3em
   overflow hidden
+  box-shadow: 0 10px 54px -9px #d3d3d3
   .event-type {
     display block
     padding .5em
@@ -78,10 +103,10 @@ header {
     border-radius 0
     background-color  $brand-blue
     color #FFFFFF
-    padding-right: 2em;
+    padding-right: 2em
     position relative
-    text-transform: uppercase;
-    letter-spacing: 4px;
+    text-transform: uppercase
+    letter-spacing: 4px
     .tags-wrap {
       display flex
       flex-direction row-reverse
@@ -92,10 +117,10 @@ header {
       right 0
       content ''
       display block
-      width: 0;
-      height: 0;
-      border-top: 20px solid $brand-blue;
-      border-left: 100vw solid transparent;
+      width: 0
+      height: 0
+      border-top: 20px solid $brand-blue
+      border-left: 100vw solid transparent
     }
   }
   .details {
@@ -103,8 +128,8 @@ header {
     box-shadow 0 6px 54px -9px #d3d3d3
     background-color white
     small{
-      margin-bottom: 1em;
-      display: block;
+      margin-bottom: 1em
+      display: block
     }
     .detail-point span{
       display inline-block

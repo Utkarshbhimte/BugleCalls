@@ -729,25 +729,60 @@ header .hamburger .line {
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
 }
-header input:checked + label {
-  background-color: #212121;
-}
-header input:checked + label .line {
-  background-color: #fff;
-}
 header .side-nav {
-  display: none;
-  background-color: #f00;
-}
-header input:checked + .side-nav {
   display: block;
+  position: absolute;
+  background-color: #fff;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 100vw;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+header .side-nav .back-btn {
+  position: fixed;
+  top: -5vh;
+  right: 10vw;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+header .side-nav ul {
+  list-style: none;
+  padding: 10vh 0;
+}
+header .side-nav ul li {
+  padding: 0;
+  margin: 0;
+}
+header .side-nav ul li a {
+  padding: 1em 2em;
+  display: block;
+  text-decoration: none;
+}
+header input:checked ~ .side-nav {
+  display: block;
+  left: 0;
+}
+header input:checked ~ .side-nav .back-btn {
+  top: 5vh;
 }
 .content-wrap {
-  padding: 4em 0 0;
+  padding: 7em 0 0;
   background-color: #f5f5f5;
 }
+.content-wrap .time-heading {
+  text-align: center;
+  margin-bottom: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #b3b3b3;
+}
 .card {
-  margin: 3em 0;
+  margin: 2em 0 3em;
+  overflow: hidden;
+  box-shadow: 0 10px 54px -9px #d3d3d3;
 }
 .card .event-type {
   display: block;
@@ -757,16 +792,42 @@ header input:checked + .side-nav {
   background-color: #1eaedb;
   color: #fff;
   padding-right: 2em;
+  position: relative;
   text-transform: uppercase;
   letter-spacing: 4px;
+}
+.card .event-type .tags-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+.card .event-type:after {
+  position: absolute;
+  top: 99%;
+  right: 0;
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 20px solid #1eaedb;
+  border-left: 100vw solid transparent;
 }
 .card .details {
   padding: 1.5em 1em;
   box-shadow: 0 6px 54px -9px #d3d3d3;
   background-color: #fff;
 }
-.card .details > span {
+.card .details small {
+  margin-bottom: 1em;
   display: block;
+}
+.card .details .detail-point span {
+  display: inline-block;
+  width: 2em;
 }
 .card h4 {
   margin: 0;
