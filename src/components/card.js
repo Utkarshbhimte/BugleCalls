@@ -12,16 +12,18 @@ class Card extends Component {
         console.log(this.props.data);
         return (
             <div className="card">
-                <span className="event-type">{event.type}</span>
-                <div className="details">
-                    <h4>{event.name}</h4>
+                <div className="event-type">
+                    <span>{event.type}</span>
                     <div className="tags-wrap">
                         {
                             event.tags.map( (tag, index) => {
-                             return <div key={index} className="tag">{tag}</div>;
+                                return <div key={index} className="tag">{tag}</div>;
                             })
                         }
                     </div>
+                </div>
+                <div className="details">
+                    <h4>{event.name}</h4>
                     <small className="organizer">{event.organizer}</small>
                     <span className="time">{event.startTime}</span>
                     <span className="time">{event.endTime}</span>

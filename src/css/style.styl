@@ -3,6 +3,8 @@
 @require 'font-awesome.min.css'
 @import url('https://www.fontify.me/wf/af83a66be5d910ef21b7df40e1dd588f')
 
+$brand-blue = #1eaedb
+
 // Header
 header {
   padding 1em
@@ -45,7 +47,6 @@ header {
   }
   .side-nav{
     display none
-    background-color red
   }
   input:checked + .side-nav {
     display block
@@ -61,16 +62,33 @@ header {
 // Card
 .card {
   margin 3em 0
+  overflow hidden
   .event-type {
     display block
     padding .5em
     text-align right
     border-radius 0
-    background-color #1eaedb
+    background-color $brand-blue
     color #FFFFFF
     padding-right: 2em;
+    position relative
     text-transform: uppercase;
     letter-spacing: 4px;
+    .tags-wrap{
+      display flex
+      flex-direction row-reverse
+    }
+    &:after{
+      position absolute
+      top 100%
+      left 0
+      content ''
+      display block
+      width: 0;
+      height: 0;
+      border-top: 20px solid $brand-blue;
+      border-left: 100vw solid transparent;
+    }
   }
   .details {
     padding 1.5em 1em
@@ -87,7 +105,7 @@ header {
     display flex
     font-size .7em
     .tag {
-      background-color #1eaedb
+      background-color $brand-blue
       border-radius .5em
       padding .5em 1em
       color: #FFF
