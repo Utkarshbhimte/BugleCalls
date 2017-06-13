@@ -17,7 +17,7 @@ class Card extends Component {
 
         return (
             <div className="card">
-                <div className="event-type">
+                <div className="event-type" onClick={() => this.props.toggleFav(event._id)}>
                     <span>{event.type}</span>
                     <div className="tags-wrap">
                         {
