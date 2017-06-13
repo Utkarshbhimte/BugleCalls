@@ -26,7 +26,7 @@ class Card extends Component {
                 </div>
                 <div className="details">
                     <h4>{event.name}</h4>
-                    <small className="organizer">Hosted by {event.organizer}</small>
+                    <small className="hunter">{event.hunter}</small>
 
                     {
                         !event.sameDay &&
@@ -55,9 +55,9 @@ class Card extends Component {
                     </div>
 
                     <div className="btn-wrap">
-                        <a href={`/event/${event._id}`} className="btn info" onClick={ () => this.props.goToEventPage(event) }></a>
                         <a href="" className="btn form"></a>
-                        <a href="" className="btn comments"></a>
+                        <a href={`/event/${event._id}`} className="btn info" onClick={ () => this.props.goToEventPage(event) }></a>
+                        {/*<a href="" className="btn comments"></a>*/}
                     </div>
                 </div>
             </div>
