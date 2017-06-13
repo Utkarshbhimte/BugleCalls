@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Router} from "react-router";
+import { browserHistory } from 'react-router'
 import RMoment from "react-moment";
 import Moment from "moment";
 import FontAwesome from "react-fontawesome";
@@ -25,7 +25,12 @@ class App extends Component {
     }
 
     componentWillMount() {
-        // this runs right before the <App> is rendered
+        const userData = !!localStorage.getItem('userDara') ? JSON.parse(localStorage.getItem('userDara')) : null;
+
+        if (!userData) {
+            this.context.history.push(`/login`);
+        }
+
         this.ref = base.syncState(`/events`, {
             context: this,
             state: 'eventsData'
@@ -39,20 +44,17 @@ class App extends Component {
         localStorage.setItem('tempEventData', null);
     }
 
+    static contextTypes = {
+        history: React.PropTypes.object,
+    };
+
     componentWillUnmount() {
         base.removeBinding(this.ref);
     }
 
-    static get contextTypes() {
-        return {
-            router: React.PropTypes.object.isRequired,
-        };
-    }
-
     organizeEventData = () => {
         let events = {};
-        SampleData.events.forEach((event, index) => {
-            console.log('event', index, Moment().calendar(Moment(event.startTime)), event.startTime);
+        SampleData.events.forEach((event) => {
             event.live = Moment().diff(Moment(event.startTime)) < 0;
 
             if (event.live) {
