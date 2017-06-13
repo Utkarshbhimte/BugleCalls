@@ -12,6 +12,12 @@ class AddEventForm extends Component {
 
     createEvent(event) {
         event.preventDefault();
+
+        if(event.formLink.indexOf("http") < 0){
+            event.formLink = "https://" + event.formLink;
+            console.log('http added ☺️')
+        }
+
         console.log('event', event)
     }
 
