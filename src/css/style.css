@@ -689,6 +689,17 @@ body {
   height: 100vh;
   width: 100vw;
 }
+.contain-all .back-btn {
+  position: absolute;
+  top: 0vh;
+  right: 0;
+  text-decoration: none;
+  padding: 2em 4em;
+}
+.contain-all.plain-page {
+  padding-top: 8vh;
+  overflow: hidden;
+}
 header {
   padding: 1em;
   box-shadow: 0 0 10px #c3c3c3;
@@ -746,8 +757,8 @@ header .side-nav {
 }
 header .side-nav .back-btn {
   position: fixed;
-  top: -5vh;
-  right: 10vw;
+  top: -15vh;
+  right: 0;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -769,7 +780,7 @@ header input:checked ~ .side-nav {
   left: 0;
 }
 header input:checked ~ .side-nav .back-btn {
-  top: 5vh;
+  top: 0;
 }
 .content-wrap {
   padding: 7em 0 0;
@@ -862,7 +873,7 @@ header input:checked ~ .side-nav .back-btn {
           align-items: center;
   margin: 1em 0;
 }
-.card .btn-wrap a.btn {
+.card .btn-wrap .btn {
   display: block;
   width: 100%;
   text-align: center;
@@ -872,13 +883,13 @@ header input:checked ~ .side-nav .back-btn {
   height: 1.5em;
   padding: 1em;
 }
-.card .btn-wrap a.btn.info {
+.card .btn-wrap .btn.info {
   background-image: url("./images/info.svg");
 }
-.card .btn-wrap a.btn.form {
+.card .btn-wrap .btn.form {
   background-image: url("./images/application-form.svg");
 }
-.card .btn-wrap a.btn.comments {
+.card .btn-wrap .btn.comments {
   background-image: url("./images/chat.svg");
 }
 .fab-btn {
@@ -895,15 +906,6 @@ header input:checked ~ .side-nav .back-btn {
   color: #fff;
   box-shadow: 0 13px 55px -9px #212121;
 }
-.form-wrap {
-  padding-top: 8vh;
-}
-.form-wrap .back-btn {
-  position: absolute;
-  top: 5vh;
-  right: 10vw;
-  text-decoration: none;
-}
 .form-wrap .input-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -915,14 +917,21 @@ header input:checked ~ .side-nav .back-btn {
 }
 .form-wrap .input-wrap label {
   -webkit-box-flex: 1;
-      -ms-flex: 1 34%;
-          flex: 1 34%;
+      -ms-flex: 1 30%;
+          flex: 1 30%;
   padding: 0.25em 2em;
   text-align: center;
   border: 1px solid #cecece;
   margin: 0.3em 1em;
   -webkit-transition: all 0.3 ease-out;
   transition: all 0.3 ease-out;
+}
+@media (max-width: 320px) {
+  .form-wrap .input-wrap label {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 50%;
+            flex: 1 50%;
+  }
 }
 .form-wrap .time-label {
   height: 38px;
@@ -954,4 +963,89 @@ header input:checked ~ .side-nav .back-btn {
   border-color: #1eaedb;
   background-color: #1eaedb;
   color: #fff;
+}
+.event-page {
+  background-color: #1eaedb;
+}
+.event-page .back-btn {
+  color: #fff;
+}
+.event-page .header {
+  color: #fff;
+  padding-bottom: 1em;
+}
+.event-page .header h2 {
+  margin: 0;
+  font-weight: 600;
+}
+.event-page .header small {
+  display: block;
+  margin-bottom: 1em;
+}
+.event-page .header small:before {
+  content: 'Hosted by ';
+  opacity: 0.6;
+}
+.event-page .header h5 {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 600;
+  opacity: 0.6;
+  margin-bottom: 0.5em;
+}
+.event-page .header .tags-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: wrap;
+      -ms-flex: wrap;
+          flex: wrap;
+  opacity: 0.6;
+}
+.event-page .header .tags-wrap .tag:before {
+  content: '#';
+}
+.event-page .content {
+  background-color: #fff;
+  min-height: 70vh;
+  position: relative;
+  padding-top: 30px;
+  color: #454545;
+}
+.event-page .content:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 20px solid #1eaedb;
+  border-left: 100vw solid transparent;
+}
+.event-page .content p {
+  margin: 1em 0;
+}
+.event-page .detail-point {
+  font-size: 1.2em;
+}
+.event-page .detail-point .fa {
+  text-align: center;
+  min-width: 3em;
+}
+.event-page .event-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 1em 0;
+}
+.event-page .event-stats .stat {
+  text-align: center;
+  width: 100%;
+  padding: 0.5em 0;
+}
+.event-page .event-stats .stat:first-child {
+  border-right: 1px solid #c3c3c3;
 }
