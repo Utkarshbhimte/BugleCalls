@@ -28,10 +28,11 @@ class AddEventForm extends Component {
 
     render() {
         return (
-            <div className="form-wrap contain-all">
+            <div className="form-wrap plain-page contain-all">
                 <a href="/" className="back-btn">Back</a>
                 <div className="container">
                     <h2>Add an Event</h2>
+                    {/* TODO: add tickets info and agenda thing*/}
                     <form ref={(input) => this.eventForm = input} onSubmit={(e) => this.createEvent(e)}>
                         <label htmlFor="">What type of Event is this?</label>
                         <div className="input-wrap">
