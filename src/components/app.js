@@ -26,7 +26,7 @@ class App extends Component {
     }
 
     componentWillMount() {
-        const userData = !!localStorage.getItem('userDara') ? JSON.parse(localStorage.getItem('userDara')) : null;
+        const userData = !!localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
 
         if (userData) {
             this.setState({userData});

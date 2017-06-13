@@ -732,7 +732,6 @@ header .hamburger {
   right: 5vw;
   height: 2em;
   width: 3em;
-  -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
 }
 header .hamburger .line {
@@ -740,7 +739,6 @@ header .hamburger .line {
   width: 80%;
   height: 2px;
   margin: 3px auto;
-  -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
 }
 header .side-nav {
@@ -751,14 +749,12 @@ header .side-nav {
   height: 100vh;
   top: 0;
   left: 100vw;
-  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 header .side-nav .back-btn {
   position: fixed;
   top: -15vh;
   right: 0;
-  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 header .side-nav ul {
@@ -932,7 +928,6 @@ header input:checked ~ .side-nav .back-btn {
   text-align: center;
   border: 1px solid #cecece;
   margin: 0.3em 1em;
-  -webkit-transition: all 0.3 ease-out;
   transition: all 0.3 ease-out;
 }
 @media (max-width: 320px) {
@@ -1110,4 +1105,41 @@ header input:checked ~ .side-nav .back-btn {
 .event-page .form-button {
   text-align: center;
   margin: 1em auto 2em;
+}
+.login-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.login-page .container {
+  text-align: center;
+}
+.login-page .container h2 {
+  font-weight: 700;
+}
+.login-page .container h4 {
+  font-weight: 400;
+}
+.login-page .logo-wrap {
+  height: 60vw;
+  width: 60vw;
+  margin-bottom: 2em;
+  background-size: contain;
+  background-image: url("./images/favicon_516.png");
+}
+.login-page .button-facebook {
+  margin-top: 3em;
+  background-color: #3b5998;
+  border-color: #3b5998;
+  width: 80vw;
 }
