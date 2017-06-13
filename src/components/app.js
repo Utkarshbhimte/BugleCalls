@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Router} from "react-router";
 import RMoment from "react-moment";
 import Moment from "moment";
 import FontAwesome from "react-fontawesome";
@@ -19,8 +20,9 @@ class App extends Component {
             events: {},
             starredEvents: []
         }
-    }
 
+        this.goToEventPage.bind(this);
+    }
 
     componentWillMount() {
         // this runs right before the <App> is rendered
@@ -32,10 +34,19 @@ class App extends Component {
 
         const starredEvents = localStorage.getItem('starredEvents') ? JSON.parse(localStorage.getItem('starredEvents')) : [];
         this.setState({starredEvents});
+
+        //  Clearing temp Event Data
+        localStorage.setItem('tempEventData', null);
     }
 
     componentWillUnmount() {
         base.removeBinding(this.ref);
+    }
+
+    static get contextTypes() {
+        return {
+            router: React.PropTypes.object.isRequired,
+        };
     }
 
     organizeEventData = () => {
@@ -71,6 +82,13 @@ class App extends Component {
         this.setState({starredEvents});
     };
 
+    goToEventPage = (eventData) => {
+        console.log('event data', eventData);
+        localStorage.setItem('tempEventData', JSON.stringify(eventData));
+
+        // this.context.router.push(`/event/${eventData._id}`);
+    };
+
     render() {
         return (
             <div className="contain-all">
@@ -86,6 +104,7 @@ class App extends Component {
                                         this.state.events[date].map((event) => {
                                             return <Card key={event._id} data={event}
                                                          toggleFav={this.toggleFav}
+                                                         goToEventPage={this.goToEventPage}
                                                          fav={this.state.starredEvents.indexOf(event._id) >= 0}/>;
                                         })
                                     }
