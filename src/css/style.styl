@@ -17,7 +17,6 @@ $brand-blue = #1eaedb
   }
   &.plain-page {
     padding-top 8vh
-    overflow hidden
   }
 }
 
@@ -146,6 +145,15 @@ header {
     small {
       margin-bottom: 1em
       display: block
+      &:before{
+        opacity .8
+      }
+      &.hunter:before{
+        content 'Shared by '
+      }
+      &.organizer:before{
+        content 'Hosted by '
+      }
     }
     .detail-point span {
       display inline-block
@@ -208,6 +216,7 @@ header {
   right 10vw
   color white
   box-shadow 0 13px 55px -9px #212121
+  z-index 9999
 }
 
 // Add form
@@ -269,6 +278,7 @@ header {
   .header {
     color: white;
     padding-bottom 1em
+    position relative
     h2 {
       margin 0
       font-weight 600
@@ -296,33 +306,41 @@ header {
         content '#'
       }
     }
-  }
-  .content{
-    background-color white
-    min-height 70vh
-    position relative
-    padding-top 30px
-    color #454545
-    &:before{
+    &:after{
       content ''
+      z-index 3
       position absolute
-      top 0
+      top 99%
       right 0
       display block
       width: 0
       height: 0
       border-top: 20px solid $brand-blue
-      border-left: 100vw solid transparent
+      border-left: 110vw solid transparent
     }
+  }
+  .content{
+    background-color white
+    padding 8vh 0
+    color #454545
+    z-index 0
     p{
       margin 1em 0
     }
   }
   .detail-point{
     font-size 1.2em
+    display flex
+    align-items center
+    > *{
+      display inline-block
+    }
     .fa{
       text-align center
       min-width 3em
+    }
+    @media (max-width: 400px){
+      font-size 1em
     }
   }
   .event-stats{
@@ -337,5 +355,39 @@ header {
         border-right 1px solid #c3c3c3
       }
     }
+  }
+  .agenda-wrap{
+    h4{
+      font-weight 400
+      color $brand-blue
+      margin-top .5em
+    }
+    ul{
+      list-style none
+      li{
+        display flex
+        align-items center
+        margin-bottom 1em
+        time{
+          width 40vw
+          display inline-block
+          padding .5em 2em .5em 0
+          height 100%
+          border-right 1px solid #c3c3c3
+          @media (max-width: 320px){
+            width 50vw
+          }
+        }
+        span{
+          display inline-block
+          padding .5em 1em
+          width 100%
+        }
+      }
+    }
+  }
+  .form-button{
+    text-align center
+    margin 1em auto 2em
   }
 }

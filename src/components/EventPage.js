@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import FontAwesome from "react-fontawesome";
 import RMoment from "react-moment";
+import SampleData from "../data";
 
 class EventPage extends Component {
     constructor() {
@@ -17,7 +18,7 @@ class EventPage extends Component {
 
         if (!!tempEventData && tempEventData._id === eventId) {
             console.log('temp data matched 😊');
-            this.setState({event: tempEventData});
+            this.setState({event: SampleData.events[0]});
         } else {
             console.warn('no temp data.😱 fetching...')
         }
@@ -28,7 +29,9 @@ class EventPage extends Component {
         let event = this.state.event;
         return (
             <div className="contain-all plain-page event-page">
-                <a href="/" className="back-btn">Back</a>
+                <a href="/" className="fab-btn">
+                    <FontAwesome name="chevron-left"/>
+                </a>
                 {   this.state.event &&
                 <div className="event-wrap">
                     <div className="header">
@@ -83,7 +86,30 @@ class EventPage extends Component {
                                 </div>
                             </div>
 
-                            <p>{event.desc}</p>
+                            <div className="form-button">
+                                <a href={event.formLink} className="button button-primary" target="_blank">Take me to the Form</a>
+                            </div>
+
+                            <div className="agenda-wrap">
+                                <h4>Agenda</h4>
+                                <ul>
+                                    {
+                                        event.agenda.map((stage, index) => {
+                                            return <li key={index}>
+                                                { stage.startTime &&
+                                                <RMoment format="hh:mm A">{stage.startTime}</RMoment>
+                                                }
+                                                <span>
+                                                    {stage.topic}
+                                                </span>
+                                            </li>
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                            { event.desc &&
+                                <p>{event.desc}</p>
+                            }
                         </div>
                     </div>
                 </div>
