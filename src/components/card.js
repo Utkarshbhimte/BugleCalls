@@ -6,13 +6,10 @@ import Moment from "moment";
 class Card extends Component {
     constructor(props) {
         super(props);
-
-
     }
 
     render() {
         let event = this.props.data;
-
         event.sameDay = Moment(event.startTime).diff(Moment(event.endTime), 'days') === 0;
 
         return (
@@ -58,7 +55,7 @@ class Card extends Component {
                     </div>
 
                     <div className="btn-wrap">
-                        <a href="" className="btn info"></a>
+                        <a href={`/event/${event._id}`} className="btn info" onClick={ () => this.props.goToEventPage(event) }></a>
                         <a href="" className="btn form"></a>
                         <a href="" className="btn comments"></a>
                     </div>
