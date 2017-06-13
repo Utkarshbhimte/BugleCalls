@@ -16,6 +16,7 @@ class App extends Component {
 
 
         this.state = {
+            userData: {},
             eventsData: [],
             events: {},
             starredEvents: []
@@ -27,7 +28,9 @@ class App extends Component {
     componentWillMount() {
         const userData = !!localStorage.getItem('userDara') ? JSON.parse(localStorage.getItem('userDara')) : null;
 
-        if (!userData) {
+        if (userData) {
+            this.setState({userData});
+        }else{
             this.context.history.push(`/login`);
         }
 
