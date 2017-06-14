@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => {
+const Header = (props) => {
     return (
         <header>
             <h3>[ BugleCalls ]</h3>
@@ -17,6 +17,7 @@ const Header = () => {
                 <ul>
                 <li><a href="">Home</a></li>
                 <li><a href="">Bookmarked Events</a></li>
+                <li><a onClick={props.logout}>Log Out</a></li>
                 <li><a href="">About Us</a></li>
                 </ul>
             </div>
