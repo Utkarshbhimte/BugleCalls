@@ -19,12 +19,24 @@ class App extends Component {
             eventsData: [],
             events: {},
             starredEvents: [],
-            toastMessage: 'We just received new Events 🎉'
+            toastMessage: null
         };
 
         this.goToEventPage.bind(this);
         this.logout.bind(this);
     }
+
+    notify = (msg, link) => {
+        const toastMessage = {
+            msg, link: link ? link : null
+        };
+        this.setState({toastMessage});
+
+        setTimeout(() => {
+            this.setState({toastMessage: null});
+        }, 2000);
+
+    };
 
     componentWillMount() {
         const userData = !!localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
@@ -78,13 +90,13 @@ class App extends Component {
                 }
 
             });
+            this.notify('We just received new events 🎉');
             this.setState({events});
         }
 
     };
 
-    toggleFav = (id) => {
-        console.log(id);
+    toggleFav = (id, name) => {
         let starredEvents = this.state.starredEvents;
         const alreadyExisits = starredEvents.indexOf(id) >= 0;
 
@@ -98,6 +110,8 @@ class App extends Component {
         console.log('starredEvents', starredEvents, alreadyExisits);
         localStorage.setItem('starredEvents', JSON.stringify(starredEvents));
         this.setState({starredEvents});
+
+        this.notify(`${name} added to your favourites 👍`, id);
     };
 
     goToEventPage = (eventData) => {
@@ -148,9 +162,7 @@ class App extends Component {
                 <a href="/add" className="fab-btn">
                     <FontAwesome name="plus"/>
                 </a>
-                {   this.state.toastMessage &&
-                    <toast>{this.state.toastMessage}</toast>
-                }
+                <toast className={`${this.state.toastMessage ? 'active' : ''}`}>{this.state.toastMessage ? this.state.toastMessage.msg : ''}</toast>
             </div>
         );
     }
