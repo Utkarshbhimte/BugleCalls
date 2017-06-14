@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import base from '../base'
+import base from "../base";
 import RMoment from "react-moment";
 
 class AddEventForm extends Component {
@@ -8,6 +8,8 @@ class AddEventForm extends Component {
 
         this.state = {
             event: {},
+            submitSuccess: false,
+            loading: false,
             eventExist: false
         };
     }
@@ -15,10 +17,12 @@ class AddEventForm extends Component {
     createEvent(e) {
         e.preventDefault();
 
+        this.setState({loading: true});
+
         let event = this.state.event;
         console.log('grabbedData', event);
 
-        if(event.formLink && event.formLink.indexOf("http") < 0){
+        if (event.formLink && event.formLink.indexOf("http") < 0) {
             event.formLink = "https://" + event.formLink;
             console.log('http added ☺️')
         }
@@ -31,10 +35,10 @@ class AddEventForm extends Component {
         this.eventsRef = base.push('events', {
             data: {...event},
             then(err){
-                if(!err){
+                if (!err) {
                     console.log('Event is uploaded 🎉 🎊');
                     promptSuccess();
-                }else{
+                } else {
                     console.error(err)
                 }
             }
@@ -42,12 +46,12 @@ class AddEventForm extends Component {
         //available immediately, you don't have to wait for the callback to be called
         var generatedKey = this.eventsRef.key;
 
-        base.update(`events/${generatedKey}`,{
+        base.update(`events/${generatedKey}`, {
             data: {_id: generatedKey},
             then(err){
-                if(!err){
+                if (!err) {
                     console.log('Event ID is also uploaded 🎉 🎊');
-                }else{
+                } else {
                     console.error(err)
                 }
             }
@@ -57,8 +61,7 @@ class AddEventForm extends Component {
     }
 
     promptSuccess = () => {
-        console.log('reacher 👍');
-        this.setState({submitSuccess: true});
+        this.setState({submitSuccess: true, loading: false});
     };
 
     handleInputChange = (Input) => {
@@ -112,8 +115,8 @@ class AddEventForm extends Component {
                                value={this.state.event.moreInfo}/>
                         <br/>
                         <input type="text" placeholder="Event Name"
-                            name="name" onChange={this.handleInputChange}
-                            value={this.state.event.name}/>
+                               name="name" onChange={this.handleInputChange}
+                               value={this.state.event.name}/>
                         <input type="text" placeholder="Event Description (optional)"
                                name="desc" onChange={this.handleInputChange}
                                value={this.state.event.desc}/>
@@ -125,7 +128,7 @@ class AddEventForm extends Component {
                             <span className="placeholder">Start Time</span>
                             }
                             {   this.state.event.startTime &&
-                                <RMoment format="DD MMMM YYYY, hh:mm A (dddd)">{this.state.event.startTime}</RMoment>
+                            <RMoment format="DD MMMM YYYY, hh:mm A (dddd)">{this.state.event.startTime}</RMoment>
                             }
                         </label>
                         <input id="event-endTime" type="datetime-local" placeholder="Event EndTime"
@@ -136,7 +139,7 @@ class AddEventForm extends Component {
                             <span className="placeholder">End Time</span>
                             }
                             {   this.state.event.endTime &&
-                                <RMoment format="DD MMMM YYYY, hh:mm A (dddd)">{this.state.event.endTime}</RMoment>
+                            <RMoment format="DD MMMM YYYY, hh:mm A (dddd)">{this.state.event.endTime}</RMoment>
                             }
                         </label>
                         <input type="text" placeholder="Event Location"
@@ -152,9 +155,20 @@ class AddEventForm extends Component {
                         <input type="submit" className="button button-primary"/>
                     </form>
                 </div>
-                <div className="complete-modal done">
-                    <h3>Event Submitted</h3>
-                    <h5>We</h5>
+                <div
+                    className={`complete-modal ${(this.state.loading && !this.state.submitSuccess) ? 'loader-wrap' : ''} ${this.state.submitSuccess ? 'done' : ''}`}>
+                    {   (this.state.loading && !this.state.submitSuccess) &&
+                    <span className="loader">
+                        <span className="loader-inner"></span>
+                    </span>
+                    }
+                    {   this.state.submitSuccess &&
+                    <div>
+                        <div className="gif-wrap"></div>
+                        <h3>Event Submitted</h3>
+                        <a href="/">Go to homepage</a>
+                    </div>
+                    }
                 </div>
             </div>
         );
