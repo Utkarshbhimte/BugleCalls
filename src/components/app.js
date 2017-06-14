@@ -1,12 +1,11 @@
 import React, {Component} from "react";
-import { browserHistory } from 'react-router'
-import RMoment from "react-moment";
+import {browserHistory} from "react-router";
 import Moment from "moment";
+import RMoment from "react-moment";
 import FontAwesome from "react-fontawesome";
 
 import Header from "./header";
 import Card from "./card";
-import SampleData from "../data.js";
 
 import base from "../base";
 
@@ -19,26 +18,34 @@ class App extends Component {
             userData: {},
             eventsData: [],
             events: {},
-            starredEvents: []
-        }
+            starredEvents: [],
+            toastMessage: 'We just received new Events 🎉'
+        };
 
         this.goToEventPage.bind(this);
+        this.logout.bind(this);
     }
 
     componentWillMount() {
         const userData = !!localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
 
         if (userData) {
+            console.log({userData});
             this.setState({userData});
-        }else{
+        } else {
             this.context.history.push(`/login`);
         }
 
-        this.ref = base.syncState(`/events`, {
+        this.ref = base.listenTo(`/events`, {
             context: this,
-            state: 'eventsData'
+            state: 'eventsData',
+            asArray: true,
+            then: (data) => {
+                console.log('fetched data 🤖', {data: data.length, events: this.state.events});
+                this.organizeEventData(data);
+                console.log('updated fetched data 🤖', {data: data.length, events: this.state.events});
+            }
         });
-        this.organizeEventData();
 
         const starredEvents = localStorage.getItem('starredEvents') ? JSON.parse(localStorage.getItem('starredEvents')) : [];
         this.setState({starredEvents});
@@ -55,19 +62,25 @@ class App extends Component {
         base.removeBinding(this.ref);
     }
 
-    organizeEventData = () => {
+    organizeEventData = (fetchedData) => {
         let events = {};
-        SampleData.events.forEach((event) => {
-            event.live = Moment().diff(Moment(event.startTime)) < 0;
+        const rawEventsData = !!fetchedData ? fetchedData : this.state.eventsData;
 
-            if (event.live) {
-                events[event.startTime] = events[event.startTime] ? events[event.startTime] : [];
-                events[event.startTime].push(event);
-            }
+        if (rawEventsData !== {}) {
+            rawEventsData.forEach((event) => {
+                event.live = Moment().diff(Moment(event.startTime)) < 0;
 
-        });
+                const startTime = Moment(event.startTime).format("MM-DD-YYYY");
 
-        this.setState({events});
+                if (event.live) {
+                    events[startTime] = events[startTime] ? events[startTime] : [];
+                    events[startTime].push(event);
+                }
+
+            });
+            this.setState({events});
+        }
+
     };
 
     toggleFav = (id) => {
@@ -90,24 +103,37 @@ class App extends Component {
     goToEventPage = (eventData) => {
         console.log('event data', eventData);
         localStorage.setItem('tempEventData', JSON.stringify(eventData));
+    };
 
-        // this.context.router.push(`/event/${eventData._id}`);
+    logout = () => {
+        console.warn('loggin out');
+        base.unauth();
+        this.setState({userData: {}});
+        localStorage.setItem('userData', null);
+        this.context.history.push(`/login`);
     };
 
     render() {
         return (
-            <div className="contain-all">
-                <Header />
+            <div className="contain-all home-page">
+                <Header logout={this.logout}/>
                 <div className="content-wrap">
                     <div className="container">
 
+                        { !this.state.events &&
+                        <div className="loader-wrap">
+                            <span className="loader"><span className="loader-inner"></span>
+                            </span>
+                        </div>
+                        }
+
                         {
-                            Object.keys(this.state.events).map((date) => {
+                            Object.keys(this.state.events).sort().map((date) => {
                                 return <div key={date} className="day-wrap">
                                     <h5 className="time-heading"><RMoment fromNow>{date}</RMoment></h5>
                                     {
-                                        this.state.events[date].map((event) => {
-                                            return <Card key={event._id} data={event}
+                                        this.state.events[date].sort().map((event, i) => {
+                                            return <Card key={i} data={event}
                                                          toggleFav={this.toggleFav}
                                                          goToEventPage={this.goToEventPage}
                                                          fav={this.state.starredEvents.indexOf(event._id) >= 0}/>;
@@ -122,6 +148,9 @@ class App extends Component {
                 <a href="/add" className="fab-btn">
                     <FontAwesome name="plus"/>
                 </a>
+                {   this.state.toastMessage &&
+                    <toast>{this.state.toastMessage}</toast>
+                }
             </div>
         );
     }

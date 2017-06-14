@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import base from '../base'
 import RMoment from "react-moment";
 
 class AddEventForm extends Component {
@@ -6,20 +7,60 @@ class AddEventForm extends Component {
         super();
 
         this.state = {
-            event: {}
-        }
+            event: {},
+            eventExist: false
+        };
+
+        this.promptSuccess = this.promptSuccess.bind(this);
     }
 
-    createEvent(event) {
-        event.preventDefault();
+    createEvent(e) {
+        e.preventDefault();
 
-        if(event.formLink.indexOf("http") < 0){
+        let event = this.state.event;
+        console.log('grabbedData', event);
+
+        if(event.formLink && event.formLink.indexOf("http") < 0){
             event.formLink = "https://" + event.formLink;
             console.log('http added ☺️')
         }
 
+        const {uid, displayName} = JSON.parse(localStorage.getItem('userData'))
+
+        event.hunter = {uid, displayName};
+
+        this.eventsRef = base.push('events', {
+            data: {...event},
+            then(err){
+                if(!err){
+                    console.log('Event is uploaded 🎉 🎊');
+                    this.promptSuccess();
+                }else{
+                    console.error(err)
+                }
+            }
+        });
+        //available immediately, you don't have to wait for the callback to be called
+        var generatedKey = this.eventsRef.key;
+
+        base.update(`events/${generatedKey}`,{
+            data: {_id: generatedKey},
+            then(err){
+                if(!err){
+                    console.log('Event ID is also uploaded 🎉 🎊');
+                }else{
+                    console.error(err)
+                }
+            }
+        });
+
         console.log('event', event)
     }
+
+    promptSuccess = () => {
+        console.log('reacher 👍');
+        this.setState({submitSuccess: true});
+    };
 
     handleInputChange = (Input) => {
         console.log('changedType.target', Input.target.getAttribute('name'));
