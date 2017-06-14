@@ -10,8 +10,6 @@ class AddEventForm extends Component {
             event: {},
             eventExist: false
         };
-
-        this.promptSuccess = this.promptSuccess.bind(this);
     }
 
     createEvent(e) {
@@ -26,15 +24,16 @@ class AddEventForm extends Component {
         }
 
         const {uid, displayName} = JSON.parse(localStorage.getItem('userData'))
-
+        const promptSuccess = () => this.promptSuccess();
         event.hunter = {uid, displayName};
+
 
         this.eventsRef = base.push('events', {
             data: {...event},
             then(err){
                 if(!err){
                     console.log('Event is uploaded 🎉 🎊');
-                    this.promptSuccess();
+                    promptSuccess();
                 }else{
                     console.error(err)
                 }
@@ -152,6 +151,10 @@ class AddEventForm extends Component {
                                value={this.state.event.tags}/>
                         <input type="submit" className="button button-primary"/>
                     </form>
+                </div>
+                <div className="complete-modal done">
+                    <h3>Event Submitted</h3>
+                    <h5>We</h5>
                 </div>
             </div>
         );
