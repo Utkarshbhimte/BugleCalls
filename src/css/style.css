@@ -1157,9 +1157,16 @@ header input:checked ~ .side-nav .back-btn {
 toast {
   display: block;
   position: fixed;
-  bottom: 0;
+  bottom: -10vh;
   left: 0;
-  padding: 0.5em 1em;
+  padding: 1em 2em;
+  width: 100%;
+  background-color: #1eaedb;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+toast.active {
+  bottom: 0;
 }
 .loader-wrap {
   position: absolute;
