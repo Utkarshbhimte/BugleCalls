@@ -40,10 +40,10 @@ class EventPage extends Component {
                             <small className="organizer">{event.organizer}</small>
                             <h5>{event.type}</h5>
                             <div className="tags-wrap">
-                                {
-                                    event.tags.map((tag) => {
-                                        return <span key={tag} className="tag">{tag}</span>;
-                                    })
+                                {   event.tags &&
+                                event.tags.map((tag) => {
+                                    return <span key={tag} className="tag">{tag}</span>;
+                                })
                                 }
                             </div>
                         </div>
@@ -87,9 +87,10 @@ class EventPage extends Component {
                             </div>
 
                             <div className="form-button">
-                                <a href={event.formLink} className="button button-primary" target="_blank">Take me to the Form</a>
+                                <a href={event.formLink} className="button button-primary" target="_blank">Take me to
+                                    the Form</a>
                             </div>
-
+                            { event.agenda &&
                             <div className="agenda-wrap">
                                 <h4>Agenda</h4>
                                 <ul>
@@ -107,8 +108,9 @@ class EventPage extends Component {
                                     }
                                 </ul>
                             </div>
+                            }
                             { event.desc &&
-                                <p>{event.desc}</p>
+                            <p>{event.desc}</p>
                             }
                         </div>
                     </div>

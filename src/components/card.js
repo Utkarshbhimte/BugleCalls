@@ -17,7 +17,7 @@ class Card extends Component {
                 <div className="event-type" onClick={() => this.props.toggleFav(event._id)}>
                     <span>{event.type}</span>
                     <div className="tags-wrap">
-                        {
+                        {   event.tags &&
                             event.tags.map((tag, index) => {
                                 return <div key={index} className="tag">{tag}</div>;
                             })
@@ -26,7 +26,7 @@ class Card extends Component {
                 </div>
                 <div className="details">
                     <h4>{event.name}</h4>
-                    <small className="hunter">{event.hunter}</small>
+                    <small className="hunter">{event.hunter.displayName}</small>
 
                     {
                         !event.sameDay &&
@@ -55,7 +55,7 @@ class Card extends Component {
                     </div>
 
                     <div className="btn-wrap">
-                        <a href="" className="btn form"></a>
+                        <a href={event.formLink} target="_blank" className="btn form"></a>
                         <a href={`/event/${event._id}`} className="btn info" onClick={ () => this.props.goToEventPage(event) }></a>
                         {/*<a href="" className="btn comments"></a>*/}
                     </div>
