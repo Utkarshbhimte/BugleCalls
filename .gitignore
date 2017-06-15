@@ -5,3 +5,5 @@
 node_modules
 build/
 src/css/images/.DS_Store
+
+src/base.js
