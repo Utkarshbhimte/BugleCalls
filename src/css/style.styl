@@ -115,8 +115,18 @@ header {
   margin 2em 0 3em
   overflow hidden
   box-shadow: 0 10px 54px -9px #d3d3d3
+  .count-wrap{
+    padding 0 1em
+    count{
+      font-size 1.4em
+    }
+  }
+  .head{
+    flex 1
+  }
   .event-type {
-    display block
+    display flex
+    align-items center
     padding .5em
     text-align right
     border-radius 0
@@ -397,6 +407,36 @@ header {
       }
     }
   }
+
+  .event-activity{
+    .action-wrap{
+      margin .5em 0 1.5em
+      display flex
+      align-items center
+      input{
+        display none
+        &:checked + label{
+          background-color $brand-blue
+          color white
+        }
+      }
+    }
+    .act{
+      padding .5em 1em
+      border 1px solid $brand-blue
+      margin-left 1em
+      text-align center
+      transition all .12s ease-in
+      @media (max-width: 375px){
+        margin-left .5em
+        padding .5em .75em
+      }
+      @media (max-width: 320px){
+        font-size .9em
+      }
+    }
+  }
+
   .agenda-wrap {
     h4 {
       font-weight 400

@@ -798,8 +798,24 @@ header input:checked ~ .side-nav .back-btn {
   overflow: hidden;
   box-shadow: 0 10px 54px -9px #d3d3d3;
 }
+.card .count-wrap {
+  padding: 0 1em;
+}
+.card .count-wrap count {
+  font-size: 1.4em;
+}
+.card .head {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
 .card .event-type {
-  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 0.5em;
   text-align: right;
   border-radius: 0;
@@ -1117,6 +1133,40 @@ header input:checked ~ .side-nav .back-btn {
 }
 .event-page .event-stats .stat:first-child {
   border-right: 1px solid #c3c3c3;
+}
+.event-page .event-activity .action-wrap {
+  margin: 0.5em 0 1.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.event-page .event-activity .action-wrap input {
+  display: none;
+}
+.event-page .event-activity .action-wrap input:checked + label {
+  background-color: #1eaedb;
+  color: #fff;
+}
+.event-page .event-activity .act {
+  padding: 0.5em 1em;
+  border: 1px solid #1eaedb;
+  margin-left: 1em;
+  text-align: center;
+  transition: all 0.12s ease-in;
+}
+@media (max-width: 375px) {
+  .event-page .event-activity .act {
+    margin-left: 0.5em;
+    padding: 0.5em 0.75em;
+  }
+}
+@media (max-width: 320px) {
+  .event-page .event-activity .act {
+    font-size: 0.9em;
+  }
 }
 .event-page .agenda-wrap h4 {
   font-weight: 400;

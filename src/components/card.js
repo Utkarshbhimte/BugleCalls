@@ -15,13 +15,19 @@ class Card extends Component {
         return (
             <div className="card">
                 <div className="event-type" onClick={() => this.props.toggleFav(event._id, event.name)}>
-                    <span>{event.type}</span>
-                    <div className="tags-wrap">
-                        {   event.tags &&
+                    <div className="count-wrap">
+                        <FontAwesome name="chevron-up"/>
+                        <count>{this.props.count}</count>
+                    </div>
+                    <div className="head">
+                        <span>{event.type}</span>
+                        <div className="tags-wrap">
+                            {   event.tags &&
                             event.tags.map((tag, index) => {
                                 return <div key={index} className="tag">{tag}</div>;
                             })
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className="details">

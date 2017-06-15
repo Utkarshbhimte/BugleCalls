@@ -3,6 +3,7 @@ import {browserHistory} from "react-router";
 import Moment from "moment";
 import RMoment from "react-moment";
 import FontAwesome from "react-fontawesome";
+import * as _ from "lodash";
 
 import Header from "./header";
 import Card from "./card";
@@ -40,6 +41,7 @@ class App extends Component {
 
     componentWillMount() {
         const userData = !!localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
+        const cachedEventData = !!localStorage.getItem('eventData') ? JSON.parse(localStorage.getItem('eventData')) : {};
 
         if (userData) {
             console.log({userData});
@@ -48,14 +50,20 @@ class App extends Component {
             this.context.history.push(`/login`);
         }
 
+        this.organizeEventData(cachedEventData);
+
         this.ref = base.listenTo(`/events`, {
             context: this,
             state: 'eventsData',
             asArray: true,
             then: (data) => {
-                console.log('fetched data 🤖', {data: data.length, events: this.state.events});
-                this.organizeEventData(data);
-                console.log('updated fetched data 🤖', {data: data.length, events: this.state.events});
+                console.log('fetched data 🤖', {data: data.length, events: cachedEventData.length});
+
+                if (cachedEventData.length !== data.length) {
+                    localStorage.setItem('eventData', JSON.stringify(data));
+                    this.organizeEventData(data);
+                    this.notify('We just received new events 🎉');
+                }
             }
         });
 
@@ -69,6 +77,52 @@ class App extends Component {
     static contextTypes = {
         history: React.PropTypes.object,
     };
+
+    componentDidMount() {
+        const computeActivityData = () => this.computeActivityData();
+
+        this.eventActivityRef = base.syncState(`eventActivity/`, {
+            context: this,
+            state: 'eventActivityData',
+            then(eventActivityData) {
+                console.log('fetched eventActivityData 🤖', this.state.eventActivityData);
+                computeActivityData(eventActivityData);
+            }
+        });
+
+    }
+
+
+    computeActivityData = () => {
+        console.log('computing activity data');
+
+        const eventActivityData = {...this.state.eventActivityData};
+        let myActivity = {};
+        let eventInteractionData = {};
+
+        Object.keys(eventActivityData).forEach( (eventId) => {
+            const interactionData = eventActivityData[eventId];
+            let actionStats = {sure: 0, undecided: 0, nope: 0};
+            const userId = JSON.parse(localStorage.getItem('userData')).uid;
+
+            const myAction = interactionData[userId];
+            myActivity[eventId] = myAction;
+
+            console.log('values', _.valuesIn(interactionData));
+
+
+            eventInteractionData[eventId] = actionStats;
+            // interactionData.forEach((uid) => {
+            //     actionStats[eventActivityData[uid]]++;
+            // });
+
+            console.log('computing result:',{actionStats, myAction});
+            this.setState({actionStats, myAction})
+        });
+
+        this.setState({myActivity})
+    };
+
 
     componentWillUnmount() {
         base.removeBinding(this.ref);
@@ -90,7 +144,6 @@ class App extends Component {
                 }
 
             });
-            this.notify('We just received new events 🎉');
             this.setState({events});
         }
 
@@ -147,7 +200,7 @@ class App extends Component {
                                     <h5 className="time-heading"><RMoment fromNow>{date}</RMoment></h5>
                                     {
                                         this.state.events[date].sort().map((event, i) => {
-                                            return <Card key={i} data={event}
+                                            return <Card key={i} data={event} count={0}
                                                          toggleFav={this.toggleFav}
                                                          goToEventPage={this.goToEventPage}
                                                          fav={this.state.starredEvents.indexOf(event._id) >= 0}/>;
@@ -162,7 +215,8 @@ class App extends Component {
                 <a href="/add" className="fab-btn">
                     <FontAwesome name="plus"/>
                 </a>
-                <toast className={`${this.state.toastMessage ? 'active' : ''}`}>{this.state.toastMessage ? this.state.toastMessage.msg : ''}</toast>
+                <toast
+                    className={`${this.state.toastMessage ? 'active' : ''}`}>{this.state.toastMessage ? this.state.toastMessage.msg : ''}</toast>
             </div>
         );
     }
