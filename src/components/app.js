@@ -102,25 +102,27 @@ class App extends Component {
 
         Object.keys(eventActivityData).forEach( (eventId) => {
             const interactionData = eventActivityData[eventId];
-            let actionStats = {sure: 0, undecided: 0, nope: 0};
+            let actionStats = {sure: 0, undecided: 0, nope: 0, count: 0};
             const userId = JSON.parse(localStorage.getItem('userData')).uid;
 
             const myAction = interactionData[userId];
             myActivity[eventId] = myAction;
 
-            console.log('values', _.valuesIn(interactionData));
-
+            _.valuesIn(interactionData).forEach( (act) => {
+                actionStats[act]++;
+            });
 
             eventInteractionData[eventId] = actionStats;
             // interactionData.forEach((uid) => {
             //     actionStats[eventActivityData[uid]]++;
             // });
 
-            console.log('computing result:',{actionStats, myAction});
-            this.setState({actionStats, myAction})
+            actionStats.count = actionStats.sure + actionStats.undecided;
+
+            console.log('computing result:',{actionStats});
         });
 
-        this.setState({myActivity})
+        this.setState({myActivity, eventInteractionData})
     };
 
 
@@ -132,7 +134,7 @@ class App extends Component {
         let events = {};
         const rawEventsData = !!fetchedData ? fetchedData : this.state.eventsData;
 
-        if (rawEventsData !== {}) {
+        if (rawEventsData.length > 0) {
             rawEventsData.forEach((event) => {
                 event.live = Moment().diff(Moment(event.startTime)) < 0;
 
@@ -146,25 +148,6 @@ class App extends Component {
             });
             this.setState({events});
         }
-
-    };
-
-    toggleFav = (id, name) => {
-        let starredEvents = this.state.starredEvents;
-        const alreadyExisits = starredEvents.indexOf(id) >= 0;
-
-        if (!alreadyExisits) {
-            starredEvents.push(id);
-        } else {
-            // _.pull(starredEvents, id)
-            starredEvents.splice(starredEvents.indexOf(id), 1);
-        }
-
-        console.log('starredEvents', starredEvents, alreadyExisits);
-        localStorage.setItem('starredEvents', JSON.stringify(starredEvents));
-        this.setState({starredEvents});
-
-        this.notify(`${name} added to your favourites 👍`, id);
     };
 
     goToEventPage = (eventData) => {
@@ -200,8 +183,7 @@ class App extends Component {
                                     <h5 className="time-heading"><RMoment fromNow>{date}</RMoment></h5>
                                     {
                                         this.state.events[date].sort().map((event, i) => {
-                                            return <Card key={i} data={event} count={0}
-                                                         toggleFav={this.toggleFav}
+                                            return <Card key={i} data={event} count={(this.state.eventInteractionData && this.state.eventInteractionData[event._id]) ? this.state.eventInteractionData[event._id].count : 0}
                                                          goToEventPage={this.goToEventPage}
                                                          fav={this.state.starredEvents.indexOf(event._id) >= 0}/>;
                                         })

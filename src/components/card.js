@@ -14,7 +14,7 @@ class Card extends Component {
 
         return (
             <div className="card">
-                <div className="event-type" onClick={() => this.props.toggleFav(event._id, event.name)}>
+                <div className="event-type">
                     <div className="count-wrap">
                         <FontAwesome name="chevron-up"/>
                         <count>{this.props.count}</count>
