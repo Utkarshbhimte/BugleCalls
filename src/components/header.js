@@ -15,10 +15,9 @@ const Header = (props) => {
                     Back
                 </label>
                 <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Bookmarked Events</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a onClick={props.logout}>Log Out</a></li>
-                <li><a href="">About Us</a></li>
+                <li><a href="/about-us">About Us</a></li>
                 </ul>
             </div>
         </header>
