@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import FontAwesome from "react-fontawesome";
 import RMoment from "react-moment";
+import base from "../base";
 import SampleData from "../data";
 
 class EventPage extends Component {
@@ -9,7 +10,12 @@ class EventPage extends Component {
 
         this.state = {
             event: {},
-        }
+            eventActivityData: {},
+            actionStats: {sure: 0, undecided: 0, nope: 0},
+            myAction: null
+        };
+
+        this.postActivity = this.postActivity.bind(this);
     }
 
     componentWillMount() {
@@ -22,6 +28,59 @@ class EventPage extends Component {
         } else {
             console.warn('no temp data.😱 fetching...')
         }
+    }
+
+    componentDidMount() {
+        const computeActivityData = () => this.computeActivityData();
+        this.eventActivityRef = base.syncState(`eventActivity/${this.props.params.eventId}`, {
+            context: this,
+            state: 'eventActivityData',
+            then(eventActivityData) {
+                console.log({eventActivityData});
+                computeActivityData(eventActivityData);
+            }
+        });
+
+
+        // if (!this.state.eventActivityData) {
+        //     console.log('No interaction yet on this event 😐');
+        //     const eventActivityData = {};
+        //     this.setState({eventActivityData});
+        // }
+    }
+
+    computeActivityData = () => {
+        console.log('computing activity data');
+
+        const eventActivityData = {...this.state.eventActivityData};
+        let actionStats = {sure: 0, undecided: 0, nope: 0};
+        const userId = JSON.parse(localStorage.getItem('userData')).uid;
+
+        const myAction = eventActivityData[userId];
+
+        Object.keys(eventActivityData).forEach((uid) => {
+            actionStats[eventActivityData[uid]]++;
+        });
+
+        console.log('computing result:',{actionStats, myAction});
+        this.setState({actionStats, myAction})
+    };
+
+    postActivity = (event) => {
+        const myAction = event.target.value;
+        const userId = JSON.parse(localStorage.getItem('userData')).uid;
+        const eventActivityData = this.state.eventActivityData;
+
+        eventActivityData[userId] = myAction;
+        this.setState({eventActivityData, myAction});
+
+        this.computeActivityData();
+        console.log('event action changes to', myAction);
+
+    };
+
+    componentWillUnmount() {
+        base.removeBinding(this.eventActivityRef);
     }
 
     //TODO: create Agenda: a ul with timestamp at first then the heading
@@ -79,10 +138,28 @@ class EventPage extends Component {
 
                             <div className="event-stats">
                                 <div className="stat">
-                                    😄 <br/> 23 going
+                                    😄 <br/> {this.state.actionStats.sure} going
                                 </div>
                                 <div className="stat">
-                                    🤔 <br/> 2 interested
+                                    🤔 <br/> {this.state.actionStats.undecided} interested
+                                </div>
+                            </div>
+
+                            <div className="event-activity">
+                                <div>You are going too, right?</div>
+                                <div className="action-wrap">
+                                    <input id="sure-input" name="userAction" type="radio" value="sure"
+                                           checked={this.state.myAction === 'sure'}
+                                           onChange={this.postActivity}/>
+                                    <label htmlFor="sure-input" className="act">Sure 👍</label>
+                                    <input id="undecided-input" name="userAction" type="radio" value="undecided"
+                                           checked={this.state.myAction === 'undecided'}
+                                           onChange={this.postActivity}/>
+                                    <label htmlFor="undecided-input" className="act">Undecided 🤔</label>
+                                    <input id="nope-input" name="userAction" type="radio" value="nope"
+                                           checked={this.state.myAction === 'nope'}
+                                           onChange={this.postActivity}/>
+                                    <label htmlFor="nope-input" className="act">Nope 😕</label>
                                 </div>
                             </div>
 
